@@ -41,23 +41,29 @@
                     <a class="nav-link" href="/djangoapp/contact">Contact Us</a>
                 </li>
             </ul>
-            <ul class="navbar-nav ml-auto">
+            <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" style="color: rgb(43, 238, 238);" href="#">{{ user.username }}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"  style="color: rgb(43, 238, 238);" href="logout/">Logout</a>
+                <li>
+                    <a class="btn btn-link" href="#"><span style="color:white">{{ user.first_name }}({{ user.username }})</span></a>
+                    <a class="btn btn-link" href="{% url 'djangoapp:logout' %}"><span style="color:white">Logout</span></a>
                 </li>
                 {% else %}
-                    <li>
-                            <a class="btn btn-link" href="/djangoapp/login/">Sign In</a>
-                            <a class="btn btn-link" href="/djangoapp/signup/">Sign Up</a>
-                    </li>
+                <li>
+                    <form class="form-inline" action="{% url 'djangoapp:login' %}" method="post">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Username" name="username" >
+                            <input type="password" class="form-control" placeholder="Password" name="psw" >
+                            <button class="btn btn-primary" type="submit">Login</button>
+                            <a class="btn btn-link" href="{% url 'djangoapp:registration' %}"><span style="color:white">Sign Up</span></a>
+                        </div>
+                    </form>
+                </li>
                 {% endif %}
             </ul>
         </div>
     </nav>
+    
     <div class="text-center" style="margin-top: 90px; color:#4444FF">
         <h1>Learn More About Best Cars Motor Company</h1>
     </div>
