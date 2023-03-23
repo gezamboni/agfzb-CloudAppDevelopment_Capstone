@@ -1,0 +1,15 @@
+{
+    "reviews": [
+      {
+        "id": 1826,
+        "name": "Gustavo Pedrone",
+        "dealership": 15,
+        "review": "Great service!",
+        "purchase": true,
+        "purchase_date": "07/11/2020",
+        "car_make": "Audi",
+        "car_model": "A6",
+        "car_year": 2010
+      }
+    ]
+  }
