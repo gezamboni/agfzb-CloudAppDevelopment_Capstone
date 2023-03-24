@@ -100,9 +100,9 @@ def get_dealer_details(request, id):
     if request.method == "GET":
         context = {}
         dealer_url = "https://us-south.functions.appdomain.cloud/api/v1/web/cd2d13ac-0ce2-4152-8106-94b865fd2788/dealership-package/get-dealership"
-        dealer, result = get_dealer_by_id_from_cf(dealer_url, id=id)
+        dealer = get_dealer_by_id_from_cf(dealer_url, id=id)
         context["dealer"] = dealer
-        context["result"] = result
+        #context["result"] = result
     
         review_url = "https://us-south.functions.appdomain.cloud/api/v1/web/cd2d13ac-0ce2-4152-8106-94b865fd2788/dealership-package/get_review"
         reviews = get_dealer_reviews_from_cf(review_url, id=id)
