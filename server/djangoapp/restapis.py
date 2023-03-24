@@ -129,8 +129,9 @@ def get_dealer_reviews_from_cf(url, **kwargs):
 #   - Call get_request() with specified arguments
 #   - Get the returned sentiment label such as Positive or Negative
 def analyze_review_sentiments(text):
-    url = "https://36757ea0-41d4-436d-aebb-8f10bfaed51d-bluemix.cloudantnosqldb.appdomain.cloud"
-    api_key = "UnTWJWkkjXzMa-gTp8oqKICGFchYwsc5tWGxpChyF2J9"
+    #url e api_key from NLU service credentials
+    url = "https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/21413455-1e78-4ef6-92cf-06d558365ef2"
+    api_key = "zJwqpFRUSvSluHiTtsqm6-5u1igGnFNlWKnkHK0fP3fq"
     authenticator = IAMAuthenticator(api_key)
     natural_language_understanding = NaturalLanguageUnderstandingV1(version='2021-08-01',authenticator=authenticator)
     natural_language_understanding.set_service_url(url)
