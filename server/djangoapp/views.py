@@ -11,10 +11,10 @@ from django.contrib import messages
 from datetime import datetime
 import logging
 import json
-#from django.db import models
-#from django.core import serializers
-#from django.utils.timezone import now
-#import uuid
+from django.db import models
+from django.core import serializers
+from django.utils.timezone import now
+import uuid
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -74,7 +74,7 @@ def registration_request(request):
             user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name,
                                             password=password)
             login(request, user)
-            return redirect("onlinecourse:index")
+            return redirect("djangoapp:index")
         else:
             context['message'] = "User already exists."
             return render(request, 'djangoapp/user_registration_bootstrap.html', context)
@@ -118,7 +118,7 @@ def get_dealer_details(request, id):
 # View to submit a new review
 def add_review(request, id):
     context = {}
-    dealer_url = "https://36cef25d.eu-gb.apigw.appdomain.cloud/api/dealership"
+    dealer_url = "https://us-south.functions.appdomain.cloud/api/v1/web/cd2d13ac-0ce2-4152-8106-94b865fd2788/dealership-package/post-review"
     dealer = get_dealer_by_id_from_cf(dealer_url, id=id)
     context["dealer"] = dealer
     if request.method == 'GET':
@@ -151,7 +151,7 @@ def add_review(request, id):
 
             new_payload = {}
             new_payload["review"] = payload
-            review_post_url = "https://36cef25d.eu-gb.apigw.appdomain.cloud/api/post-review"
+            review_post_url = "https://us-south.functions.appdomain.cloud/api/v1/web/cd2d13ac-0ce2-4152-8106-94b865fd2788/dealership-package/post-review"
             post_request(review_post_url, new_payload, id=id)
         return redirect("djangoapp:dealer_details", id=id)     
 

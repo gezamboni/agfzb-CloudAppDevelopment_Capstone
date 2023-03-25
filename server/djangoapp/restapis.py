@@ -9,12 +9,19 @@ import time
 
 
 def get_request(url, **kwargs):
-    print(kwargs)
+    print("kwargs", kwargs)
     print("GET from {} ".format(url))
+    api_key = kwargs.get("api_key")
     try:
         # Call get method of requests library with URL and parameters
-        response = requests.get(url, headers={'Content-Type': 'application/json'},
-                                    params=kwargs)
+        # response = requests.get(url, headers={'Content-Type': 'application/json'}, params=kwargs)
+        # response = requests.get(url, params=params, headers={'Content-Type': 'application/json'}, auth=HTTPBasicAuth('apikey', api_key))
+        if api_key:
+            # Basic authentication GET
+            response = request.get(url, params=kwargs, headers={'Content-Type': 'application/json'}, auth=HTTPBasicAuth('apikey', api_key))
+        else:
+            # no authentication GET
+            response = requests.get(url, headers={'Content-Type': 'application/json'}, params=kwargs)
     except:
         # If any error occurs
         print("Network exception occurred")
@@ -26,6 +33,17 @@ def get_request(url, **kwargs):
 
 # Create a `post_request` to make HTTP POST requests
 #       e.g., response = requests.post(url, params=kwargs, json=payload)
+# Create a `post_request` to make HTTP POST requests
+# e.g., response = requests.post(url, params=kwargs, json=payload)
+def post_request(url, payload, **kwargs):
+    print(kwargs)
+    print("POST to {} ".format(url))
+    print(payload)
+    response = requests.post(url, params=kwargs, json=payload)
+    status_code = response.status_code
+    print("With status {} ".format(status_code))
+    json_data = json.loads(response.text)
+    return json_data
 
 
 # Create a get_dealers_from_cf method to get dealers from a cloud function
@@ -65,13 +83,13 @@ def get_dealers_from_cf(url, **kwargs):
 #   - Parse JSON results into a DealerView object list
 def get_dealer_by_id_from_cf(url, **kwargs):
     result = "ok"
-    #id = kwargs.get("id")
-    #if id:
+    id = kwargs.get("id")
+    if id:
         # - Call get_request() with specified id
-        #json_result = get_request(url, id)
-    #else:
+        json_result = get_request(url, id = id)
+    else:
         # - Call get_request() with url
-    json_result = get_request(url)
+        json_result = get_request(url)
 
     for dealer in json_result:
         dealer_data = dealer["doc"]
