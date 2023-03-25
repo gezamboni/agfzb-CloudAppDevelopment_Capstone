@@ -11,11 +11,16 @@
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 
+    <script>
+        $(function() {
+          $('#table').bootstrapTable()
+        })
+      </script>
 </head>
 
 <body>
     <!--Add a nav bar here -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-bottom:20px">
         <a class="navbar-brand" href="#">Best Cars</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -63,15 +68,16 @@
             {% endfor %}
         {% endif %}
         
-        <table class="table table-striped" id="table" data-filter-control="true">
-            <thead>
+        <table class="table table-striped table-bordered table-hover" id="table" data-filter-control="true" style="margin-bottom:20px">
+            <thead style="background-color:DodgerBlue;color:white">
                 <tr>
                     <th data-field="id">ID</th>
                     <th data-field="full_name">Dealer Name</th>
                     <th data-field="city">City</th>
                     <th data-field="address">Address</th>
                     <th data-field="zip">Zip</th>
-                    <th data-field="state" data-filter-control="select">State</th>
+                    <th data-field="st" data-filter-control="select">State</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -88,7 +94,8 @@
             </tbody>
         </table>
     </div>
-    <footer class="fixed-bottom ">
+    <br>
+    <footer class="fixed-bottom " style="margin-top:20px;">
         <div class="container-fluid bg-dark text-white">
             <a href="{% url 'djangoapp:contact' %}"><span style="color:white">Contact Us</span></a>
         </div>
