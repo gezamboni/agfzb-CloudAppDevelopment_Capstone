@@ -9,9 +9,10 @@ import time
 
 
 def get_request(url, **kwargs):
-    print("kwargs", kwargs)
-    print("GET from {} ".format(url))
+    print("get_request => kwargs", kwargs)
+    print("get_request => GET from {} ".format(url))
     api_key = kwargs.get("api_key")
+    print("get_request => api_key", api_key, "\n")
     try:
         # Call get method of requests library with URL and parameters
         # response = requests.get(url, headers={'Content-Type': 'application/json'}, params=kwargs)
@@ -28,6 +29,7 @@ def get_request(url, **kwargs):
     status_code = response.status_code
     print("With status {} ".format(status_code))
     json_data = json.loads(response.text)
+    print("get_request => json_data", json_data , "\n")
     return json_data
 
 
@@ -84,15 +86,20 @@ def get_dealers_from_cf(url, **kwargs):
 def get_dealer_by_id_from_cf(url, **kwargs):
     result = "ok"
     id = kwargs.get("id")
+    print("\nget_dealer_by_id_from_cf => id= ", id , "\n")
+    print("\nget_dealer_by_id_from_cf => id= ", url , "\n")
     if id:
         # - Call get_request() with specified id
-        json_result = get_request(url, id = id)
+        print("\nget_dealer_by_id_from_cf => local 1")
+        print("\nget_request(url, id=id)", get_request(url, id=id) , "\n")
+        json_result = get_request(url, id=id)
     else:
         # - Call get_request() with url
+        print("local 2")
         json_result = get_request(url)
 
     for dealer in json_result:
-        dealer_data = dealer["doc"]
+        dealer_data = dealer
         # Create a CarDealer object with values in `doc` object
         dealer = CarDealer(address=dealer_data["address"], city=dealer_data["city"], full_name=dealer_data["full_name"],
                                         id=dealer_data["id"], lat=dealer_data["lat"], long=dealer_data["long"],

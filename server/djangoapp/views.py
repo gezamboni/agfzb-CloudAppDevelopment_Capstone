@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect
 # from .models import related models
 from .models import CarModel, CarMake, CarDealer, DealerReview
 # from .restapis import related methods
-from .restapis import get_dealers_from_cf, get_request, get_dealer_by_id_from_cf, get_dealer_reviews_from_cf
+from .restapis import get_dealers_from_cf, get_request, get_dealer_by_id_from_cf, get_dealer_reviews_from_cf, post_request
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from datetime import datetime
@@ -118,7 +118,7 @@ def get_dealer_details(request, id):
 # View to submit a new review
 def add_review(request, id):
     context = {}
-    dealer_url = "https://us-south.functions.appdomain.cloud/api/v1/web/cd2d13ac-0ce2-4152-8106-94b865fd2788/dealership-package/post-review"
+    dealer_url = "https://us-south.functions.appdomain.cloud/api/v1/web/cd2d13ac-0ce2-4152-8106-94b865fd2788/dealership-package/get-dealership"
     dealer = get_dealer_by_id_from_cf(dealer_url, id=id)
     context["dealer"] = dealer
     if request.method == 'GET':
@@ -145,7 +145,7 @@ def add_review(request, id):
                 if request.POST["purchasecheck"] == 'on':
                     payload["purchase"] = True
             payload["purchase_date"] = request.POST["purchasedate"]
-            payload["car_make"] = car.make.name
+            payload["car_make"] = car.carmake.name
             payload["car_model"] = car.name
             payload["car_year"] = int(car.year.strftime("%Y"))
 
