@@ -108,6 +108,17 @@ def get_dealer_details(request, id):
         review_url = "https://us-south.functions.appdomain.cloud/api/v1/web/cd2d13ac-0ce2-4152-8106-94b865fd2788/dealership-package/get_review"
         reviews = get_dealer_reviews_from_cf(review_url, id=id)
         print("\nget_dealer_details => reviews", reviews ,"\n")
+        print("\nget_dealer_details => type(reviews)", type(reviews))
+        print("\nget_dealer_details => len(reviews)", len(reviews))
+        print("\nget_dealer_details => reviews[0]", reviews[0])
+        print("\nget_dealer_details => reviews[0].dealership ", reviews[0].dealership)
+        print("\nget_dealer_details => reviews[0].name ", reviews[0].name)
+        print("\nget_dealer_details => reviews[0].purchase ", reviews[0].purchase)
+        print("\nget_dealer_details => reviews[0].review ", reviews[0].review )
+        print("\nget_dealer_details => reviews[0].purchase_date", reviews[0].purchase_date)
+        print("\nget_dealer_details => reviews[0].make", reviews[0].make)
+        print("\nget_dealer_details => reviews[0].car_model", reviews[0].car_model)
+        print("\nget_dealer_details => reviews[0].car_year", reviews[0].car_year)
         context["reviews"] = reviews
         
         return render(request, 'djangoapp/dealer_details.html', context)

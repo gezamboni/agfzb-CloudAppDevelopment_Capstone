@@ -133,13 +133,13 @@ def get_dealer_reviews_from_cf(url, **kwargs):
     if json_result_02:
         for dealer_review in json_result_02:
             review_obj = DealerReview(dealership=dealer_review["dealership"], name=dealer_review["name"], purchase=dealer_review["purchase"], review=dealer_review["review"])
-            print("get_dealer_reviews_from_cf => review_obj", review_obj"\n")
+            print("get_dealer_reviews_from_cf => review_obj", review_obj, "\n")
             if "id" in dealer_review:
                 review_obj.id = dealer_review["id"]
             if "purchase_date" in dealer_review:
                 review_obj.purchase_date = dealer_review["purchase_date"]
-            if "make" in dealer_review:
-                review_obj.make = dealer_review["make"]
+            if "car_make" in dealer_review:
+                review_obj.make = dealer_review["car_make"]
             if "car_model" in dealer_review:
                 review_obj.car_model = dealer_review["car_model"]
             if "car_year" in dealer_review:
