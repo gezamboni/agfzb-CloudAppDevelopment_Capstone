@@ -116,21 +116,24 @@ def get_dealer_by_id_from_cf(url, **kwargs):
 def get_dealer_reviews_from_cf(url, **kwargs):
     results = []
     id = kwargs.get("id")
+    print("\n\n Aqui começa get_dealer_reviews_from_cf\n\n")
+    print("\nget_dealer_reviews_from_cf => id", id ,"\n")
     if id:
+        print("get_dealer_reviews_from_cf => local 1\n")
         json_result = get_request(url, id=id)
     else:
+        print("get_dealer_reviews_from_cf => local 2\n")
         json_result = get_request(url)
-
+    print("get_dealer_reviews_from_cf => json_result", json_result,"\n")
     json_result_01 = json_result["data"]
+    print("get_dealer_reviews_from_cf => json_result_01", json_result_01,"\n")
     json_result_02 = json_result_01["docs"]
-    if json_result_01:
+    print("get_dealer_reviews_from_cf => json_result_02", json_result_02,"\n")
+
+    if json_result_02:
         for dealer_review in json_result_02:
-            #reviews = dealer
-        #for dealer_review in reviews:
-            review_obj = DealerReview(dealership=dealer_review["dealership"],
-                                   name=dealer_review["name"],
-                                   purchase=dealer_review["purchase"],
-                                   review=dealer_review["review"])
+            review_obj = DealerReview(dealership=dealer_review["dealership"], name=dealer_review["name"], purchase=dealer_review["purchase"], review=dealer_review["review"])
+            print("get_dealer_reviews_from_cf => review_obj", review_obj"\n")
             if "id" in dealer_review:
                 review_obj.id = dealer_review["id"]
             if "purchase_date" in dealer_review:
